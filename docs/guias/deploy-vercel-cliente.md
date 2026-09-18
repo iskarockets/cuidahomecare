@@ -18,6 +18,28 @@ publica sozinho.
 
 ---
 
+## ⚠️ Antes de começar: qual GitHub está ligado à Vercel do cliente?
+
+Esse é o detalhe que decide se o import funciona de primeira. O repositório é **privado** e
+pertence à conta de usuário `iskarockets`. A Vercel do cliente só enxerga repositórios que a
+**conta GitHub ligada a ela** consegue enxergar.
+
+Veja em _Settings → Git_ (ou no topo da tela de import) qual login GitHub está conectado:
+
+| Cenário                                                                          | O que fazer                                                                                                    |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **A conta ligada é `iskarockets`**                                               | Nada. Siga direto para o passo 1                                                                               |
+| **É outra conta GitHub** (do cliente, ou a sua pessoal `lucasnogueira368-pixel`) | Essa conta precisa ser **colaboradora** do repositório. Me diga o login e eu adiciono com permissão de leitura |
+
+Sem isso, o repositório simplesmente não aparece na lista de import — e o erro não explica o
+motivo, o que faz perder tempo.
+
+**Nota sobre o plano Hobby:** contas gratuitas **não** conseguem importar repositórios de
+**organizações** do GitHub. Aqui isso não é problema: `iskarockets` é uma **conta de usuário**,
+não uma organização. Verificado.
+
+---
+
 ## Passo a passo
 
 ### 1. Entre na conta Vercel do cliente
@@ -38,7 +60,7 @@ Clique em **Adjust GitHub App Permissions** (ou **Configure GitHub App**). Isso 
 Lá:
 
 1. Escolha a conta/organização **`iskarockets`**.
-2. Em *Repository access*, selecione **Only select repositories**.
+2. Em _Repository access_, selecione **Only select repositories**.
 3. Marque **`cuidahomecare`**.
 4. **Save**.
 
@@ -52,14 +74,14 @@ De volta à Vercel, `iskarockets/cuidahomecare` aparece na lista. Clique em **Im
 
 A Vercel detecta Astro sozinha. Confirme que está assim:
 
-| Campo | Valor esperado |
-|---|---|
-| Framework Preset | **Astro** |
-| Build Command | `npm run build` |
-| Output Directory | `dist` |
-| Install Command | `npm install` |
-| Root Directory | `./` |
-| Node.js Version | 20 ou superior |
+| Campo            | Valor esperado  |
+| ---------------- | --------------- |
+| Framework Preset | **Astro**       |
+| Build Command    | `npm run build` |
+| Output Directory | `dist`          |
+| Install Command  | `npm install`   |
+| Root Directory   | `./`            |
+| Node.js Version  | 20 ou superior  |
 
 **Environment Variables:** nenhuma. O site não usa nenhuma.
 
@@ -77,9 +99,30 @@ oficial e fecho a Story 2.1 — a medição que hoje está travada por falta de 
 
 ## O que passa a acontecer sozinho
 
-- Todo push para `main` republica o site.
+- Todo push para **`main`** republica o site em produção. (A branch padrão do repositório é
+  `main`, não `master` — a Vercel usa a branch padrão como branch de produção.)
 - Todo push em outra branch gera uma URL de preview separada, sem afetar a principal.
 - Os headers de segurança e o cache do `vercel.json` são aplicados automaticamente.
+- O e-mail que assina o commit **não interfere** no deploy: a Vercel publica pela integração
+  com o repositório, não pela autoria do commit. O e-mail só aparece como rótulo no painel.
+
+---
+
+## Decisão registrada: plano Hobby (18/09/2026)
+
+O site vai rodar na conta do cliente **no plano gratuito**, por decisão do Lucas, com base no
+volume baixo de acesso.
+
+**Risco aceito:** o Hobby da Vercel é destinado a uso pessoal e não comercial. Um site
+institucional de empresa é uso comercial. A Vercel pode notificar pedindo upgrade e, em
+último caso, limitar o projeto.
+
+**Se isso acontecer**, há duas saídas rápidas, ambas sem mexer no código:
+
+1. Upgrade da conta do cliente para Pro.
+2. Transferir o projeto para o time **`iskr-projects`**, que já é Pro.
+
+Em qualquer uma delas o repositório continua o mesmo; muda só onde o projeto está hospedado.
 
 ---
 
@@ -89,7 +132,7 @@ Se a conta do cliente não puder instalar o GitHub App da Vercel (acontece quand
 gerida por outra pessoa), há dois caminhos alternativos:
 
 **A. Token da conta do cliente.** No painel da Vercel do cliente:
-*Settings → Tokens → Create Token*. Você me passa o token e eu publico pelo CLI, sem precisar
+_Settings → Tokens → Create Token_. Você me passa o token e eu publico pelo CLI, sem precisar
 de login. O token dá acesso à conta — trate como senha, e revogue quando quiser.
 
 **B. Upload manual.** Rodo `npm run build` aqui e você arrasta a pasta `dist/` para
