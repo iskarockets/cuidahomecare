@@ -1,6 +1,7 @@
 # Importar o site na conta Vercel do cliente (pelo navegador)
 
-**Contexto:** o código está no GitHub da **ISKR** (`iskarockets/cuidahomecare`, privado) e o
+**Contexto:** o código está no GitHub da **ISKR** (`iskarockets/cuidahomecare`, público — ver
+"O repositório precisou virar público", mais abaixo) e o
 site precisa rodar na **conta Vercel do cliente**. Como não temos acesso CLI à conta do
 cliente, a ligação é feita pelo navegador, uma vez só. Depois disso, todo push para `main`
 publica sozinho.
@@ -105,8 +106,10 @@ oficial e fecho a Story 2.1 — a medição que hoje está travada por falta de 
   `main`, não `master` — a Vercel usa a branch padrão como branch de produção.)
 - Todo push em outra branch gera uma URL de preview separada, sem afetar a principal.
 - Os headers de segurança e o cache do `vercel.json` são aplicados automaticamente.
-- O e-mail que assina o commit **não interfere** no deploy: a Vercel publica pela integração
-  com o repositório, não pela autoria do commit. O e-mail só aparece como rótulo no painel.
+- O e-mail que assina o commit **interfere sim** no deploy, ao contrário do que este guia dizia
+  até 18/09. No plano Hobby a Vercel exige que o autor do commit seja membro da conta — e
+  bloqueia o build quando não é. O que destrava isso aqui é o repositório ser **público**; ver
+  "O repositório precisou virar público", mais abaixo.
 
 ---
 
@@ -125,6 +128,30 @@ institucional de empresa é uso comercial. A Vercel pode notificar pedindo upgra
 2. Transferir o projeto para o time **`iskr-projects`**, que já é Pro.
 
 Em qualquer uma delas o repositório continua o mesmo; muda só onde o projeto está hospedado.
+
+### O repositório precisou virar público (18/09/2026, 17h)
+
+O primeiro deploy — disparado por você pelo painel — funcionou. Todo commit vindo do Git depois
+dele foi **bloqueado**, com esta mensagem:
+
+> Git author `iskr8` must have access to the project on Vercel to create deployments.
+> The Hobby Plan does not support collaboration for **private repositories**.
+
+O Hobby só aceita deploy de commit cujo autor seja membro da conta Vercel. Como o código é
+commitado pela ISKR e a conta Vercel é do cliente, o autor nunca bate. No Hobby não dá para
+adicionar membro — é exatamente o que o plano não oferece.
+
+A trava vale **só para repositório privado**. O repo foi tornado público e o push-to-deploy
+passou a funcionar na hora. Antes disso o histórico foi auditado: nenhuma credencial em nenhum
+commit — o `.env.example` que passou por lá (removido em `767ccbe`) era o template do AIOS com
+todos os campos vazios. É um site estático, sem segredo no código.
+
+⚠️ **Não volte o repositório para privado** sem antes trocar o modelo de deploy. Se voltar, os
+pushes param de publicar silenciosamente: a Vercel continua registrando o deploy no GitHub,
+mas com status `failure`, e o site fica servindo a versão antiga sem nenhum aviso visível.
+
+As alternativas, se algum dia for preciso fechar o repo: commitar com o e-mail da conta Vercel
+do cliente, deployar por GitHub Actions com o `VERCEL_TOKEN` dele, ou subir para Pro.
 
 ---
 
