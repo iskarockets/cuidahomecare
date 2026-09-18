@@ -52,6 +52,58 @@ acesso é o do revendedor, não o `tucows.com`. O revendedor não aparece na con
 
 ---
 
+## O e-mail está configurado, mas provavelmente nunca foi usado (18/09)
+
+O cliente informou que não usa e-mail corporativo, só Gmail. As consultas de DNS sustentam
+isso:
+
+| Registro                       | Situação       | O que indica                                     |
+| ------------------------------ | -------------- | ------------------------------------------------ |
+| MX `smtp.google.com`           | existe         | Google Workspace foi **iniciado** no domínio     |
+| `google-site-verification`     | existe         | a propriedade do domínio chegou a ser verificada |
+| **SPF** (`v=spf1`)             | **não existe** | envio nunca foi configurado                      |
+| **DKIM** (`google._domainkey`) | **não existe** | assinatura nunca foi configurada                 |
+| **DMARC** (`_dmarc`)           | **não existe** | política nunca foi configurada                   |
+
+Um Workspace em uso real tem, no mínimo, SPF. A ausência dos três indica configuração
+**começada e abandonada** — bate com o relato do cliente. O contato de verdade é o
+`contato.cuidahomecare@gmail.com`, Gmail comum, que é inclusive o publicado no site.
+
+**Mesmo assim, não apague o MX.** Só o MX já basta para **receber**. Se alguém escreveu para
+`@cuidahomecare.com` em algum momento, essas mensagens caem numa caixa do Workspace. Manter o
+registro custa zero e elimina a chance de descobrir o contrário do jeito ruim.
+
+---
+
+## Não existe painel de hospedagem
+
+Verificado em 18/09: nenhum dos subdomínios típicos de hospedagem responde.
+
+```
+cpanel  webmail  mail  ftp  autodiscover  painel  admin   →  todos inexistentes
+```
+
+O site é servido pela **Canva** (headers confirmam Cloudflare na frente, IP na rede
+`CANVAPTYLTD-AU`). Não há servidor, cPanel, FTP ou webmail em lugar nenhum.
+
+**O que existe é um painel de domínio/DNS**, no revendedor da Tucows. É só isso que precisa
+ser pedido.
+
+⚠️ **O domínio é `.com`, não `.com.br` — o registro.br não tem nada a ver com ele.** O
+registro.br administra apenas domínios brasileiros. Pedir acesso a ele é caminho sem saída.
+
+**Hipótese mais provável de onde está:** comprado **dentro da própria Canva**. As evidências
+apontam para isso — domínio registrado em 04/07/2025 (perto da publicação do site), registradora
+de atacado (Tucows) com nameservers padrão do OpenSRS, site publicado pela Canva, e nenhum outro
+serviço configurado no domínio. A Canva vende domínios dentro do editor de sites e administra o
+DNS deles.
+
+**Onde conferir:** na conta Canva do cliente, abrir o projeto do site → _Configurações →
+Domínio_. Se o domínio aparecer ali como gerenciado pela Canva, o painel é esse — e o acesso
+provavelmente já existe, já que alguém publica o site por lá.
+
+---
+
 ## Plano de cutover corrigido
 
 ### ❌ O que NÃO fazer
