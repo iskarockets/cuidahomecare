@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+import TrabalheConosco from "../components/sections/TrabalheConosco.astro";
+import FraseBanner from "../components/sections/FraseBanner.astro";
+import Diferenciais from "../components/sections/Diferenciais.astro";
+import Institucional from "../components/sections/Institucional.astro";
+import NossosServicos from "../components/sections/NossosServicos.astro";
+import ComoFunciona from "../components/sections/ComoFunciona.astro";
+import PorQueACuida from "../components/sections/PorQueACuida.astro";
+import FraseDestaque from "../components/sections/FraseDestaque.astro";
+import OQueACuidaFaz from "../components/sections/OQueACuidaFaz.astro";
+import FaleComACuida from "../components/sections/FaleComACuida.astro";
+import FabWhatsApp from "../components/ui/FabWhatsApp.astro";
+---
+
+<BaseLayout
+  title="Cuida Home Care | Cuidadores de idosos no ABC e região"
+  description="Cuidado domiciliar com equipe capacitada e supervisionada no ABC e região. Cuidados paliativos, desospitalização e acompanhamento contínuo. Fale com a Cuida."
+>
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      href="/fonts/playfair-display-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </Fragment>
+
+  <TrabalheConosco />
+
+  <main>
+    <Hero />
+    <FraseBanner />
+    <Diferenciais />
+    <Institucional />
+    <NossosServicos />
+    <ComoFunciona />
+    <PorQueACuida />
+    <FraseDestaque />
+    <OQueACuidaFaz />
+  </main>
+
+  <FaleComACuida />
+
+  <!-- O CTA flutuante fica num landmark próprio: solto no body, ele é conteúdo
+       fora de região e reprova a regra "region" do axe no mobile. -->
+  <aside aria-label="Contato rápido">
+    <FabWhatsApp />
+  </aside>
+</BaseLayout>

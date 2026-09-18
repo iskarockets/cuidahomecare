@@ -1,0 +1,11 @@
+<!-- Cuida Home Care — marca simplificada: sol atrás de uma casa com folhas -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#FAF4E9"/>
+  <circle cx="38" cy="24" r="13" fill="#FBDB68"/>
+  <g fill="none" stroke="#353539" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 30 32 14l20 16v20a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2z"/>
+    <path d="M32 46v-9"/>
+    <path d="M32 40c-5 0-8-2.5-8-6 4 0 8 2 8 6z"/>
+    <path d="M32 40c5 0 8-2.5 8-6-4 0-8 2-8 6z"/>
+  </g>
+</svg>

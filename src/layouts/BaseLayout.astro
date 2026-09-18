@@ -1,0 +1,51 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Caminho canônico relativo, ex.: "/" ou "/404" */
+  canonicalPath?: string;
+  /** Página fora do índice (404) */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = "/",
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(
+  canonicalPath,
+  Astro.site ?? "https://cuidahomecare.com",
+).href;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+      )
+    }
+    <meta name="theme-color" content="#FAF4E9" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- GTM slot -->
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "cuidahomecare",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site estático da Cuida Home Care — rebuild de performance (Astro, zero JS no cliente)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fonts": "node scripts/baixar-fontes.mjs",
+    "lint": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/*.mjs\" \"*.{json,mjs}\" \"docs/**/*.md\"",
+    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/*.mjs\" \"*.{json,mjs}\" \"docs/**/*.md\"",
+    "typecheck": "astro check",
+    "test": "npm run build && node scripts/check-links.mjs && html-validate \"dist/**/*.html\""
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "html-validate": "^9.0.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-astro": "^0.14.0",
+    "subset-font": "^2.3.0",
+    "typescript": "^5.6.0"
+  }
+}

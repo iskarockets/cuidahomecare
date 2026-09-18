@@ -1,0 +1,103 @@
+---
+import CtaWhatsApp from "../ui/CtaWhatsApp.astro";
+
+/**
+ * Os cards NÃO são links.
+ *
+ * No site atual a seta "›" é decorativa: nenhum dos 4 cards leva a outra página
+ * ou âncora (verificado no DOM renderizado em 17/09). Conforme AC4 da Story 1.6,
+ * quando não há destino o card permanece como conteúdo e a seta é removida —
+ * inventar destino violaria a FR10.
+ */
+const servicos = [
+  { titulo: "Terceirização ILPI", subtitulo: "Sem burocracia e com confiança" },
+  {
+    titulo: "Cuidado domiciliar continuado",
+    subtitulo: "Cuidadores treinados e supervisionados",
+  },
+  {
+    titulo: "Acompanhamento hospitalar",
+    subtitulo: "Cuidador no hospital e retorno seguro",
+  },
+  {
+    titulo: "Consultoria para famílias",
+    subtitulo: "Decida entre home care ou casa de repouso",
+  },
+];
+---
+
+<section class="servicos" id="servicos">
+  <div class="container">
+    <h2 class="servicos__titulo">Nossos serviços</h2>
+
+    <ul class="servicos__grid">
+      {
+        servicos.map((servico) => (
+          <li class="card">
+            <h3 class="card__titulo">{servico.titulo}</h3>
+            <p class="card__subtitulo">{servico.subtitulo}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="servicos__cta">
+      <CtaWhatsApp texto="Solicite uma visita" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .servicos {
+    background: var(--bg-secao-alt);
+    padding-block: var(--esp-secao);
+  }
+
+  .servicos__titulo {
+    font-size: var(--fs-display-md);
+    text-align: center;
+    margin-bottom: var(--esp-12);
+  }
+
+  .servicos__grid {
+    display: grid;
+    gap: var(--esp-4);
+    margin-bottom: var(--esp-12);
+  }
+
+  .card {
+    background: var(--bg-card);
+    color: var(--texto-sobre-card);
+    border-radius: var(--raio-card);
+    padding: var(--esp-6);
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--esp-2);
+  }
+
+  .card__titulo {
+    color: var(--texto-sobre-card);
+    font-size: var(--fs-label);
+    font-weight: var(--peso-forte);
+  }
+
+  .card__subtitulo {
+    font-size: var(--fs-small);
+    margin: 0;
+    max-width: none;
+  }
+
+  .servicos__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .servicos__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--esp-6);
+    }
+  }
+</style>

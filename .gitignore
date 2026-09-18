@@ -1,0 +1,87 @@
+# ========================================
+# Projeto — Astro / Node
+# ========================================
+node_modules/
+dist/
+.astro/
+.vercel/
+
+# ========================================
+# AIOS
+# ========================================
+.aios/
+.aios-core/local/
+.aios-core/*.local.yaml
+.aios-core/logs/
+.aios-core/cache/
+.ai/
+
+# ========================================
+# Ambiente
+# ========================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+!.env.example
+
+# ========================================
+# IDE & Editor
+# ========================================
+.vscode/settings.json
+.vscode/*.code-workspace
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ========================================
+# Sistema operacional
+# ========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ========================================
+# Logs e temporários
+# ========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ========================================
+# Backups e arquivos compactados
+# ========================================
+*.bak
+*.backup
+*.orig
+*.zip
+*.tar.gz
+*.rar
+
+# ========================================
+# Ferramental AIOS e de IDE — não faz parte do site
+# O framework é dependência, não código-fonte deste projeto.
+# Reinstalável; manter fora do repositório do cliente.
+# ========================================
+.aios-core/
+.antigravity/
+.codex/
+.cursor/
+.gemini/

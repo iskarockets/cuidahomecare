@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import logo from "../assets/logo-cuida.png";
+import CtaWhatsApp from "../components/ui/CtaWhatsApp.astro";
+---
+
+<BaseLayout
+  title="Página não encontrada | Cuida Home Care"
+  description="A página que você procurava não existe. Volte para o início e fale com a Cuida Home Care."
+  canonicalPath="/404"
+  noindex={true}
+>
+  <main class="erro">
+    <div class="container erro__conteudo">
+      <Image
+        src={logo}
+        alt="Cuida Home Care"
+        widths={[200, 400]}
+        class="erro__logo"
+      />
+
+      <h1 class="erro__titulo">Esta página não existe.</h1>
+
+      <p class="erro__texto">
+        O endereço que você abriu não está mais aqui. Volte para o início ou
+        fale com a gente — respondemos no WhatsApp.
+      </p>
+
+      <div class="erro__acoes">
+        <a class="erro__voltar" href="/">Voltar para o início</a>
+        <CtaWhatsApp texto="faça um orçamento" blocoNoMobile={false} />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .erro {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background: var(--bg-pagina);
+    padding-block: var(--esp-secao);
+  }
+
+  .erro__conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--esp-6);
+    text-align: center;
+  }
+
+  .erro__logo {
+    width: 160px;
+    height: auto;
+  }
+
+  .erro__titulo {
+    font-size: var(--fs-display-md);
+  }
+
+  .erro__texto {
+    max-width: 42ch;
+  }
+
+  .erro__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--esp-4);
+    margin-top: var(--esp-4);
+  }
+
+  .erro__voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--alvo-min);
+    padding: var(--esp-3) var(--esp-8);
+    border: 2px solid var(--cor-lilas);
+    border-radius: var(--raio-botao);
+    font-weight: var(--peso-forte);
+  }
+</style>
