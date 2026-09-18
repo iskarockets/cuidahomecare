@@ -1,4 +1,13 @@
-# Cuida Home Care
+import type { APIRoute } from "astro";
+
+/**
+ * robots.txt gerado no build, para a linha Sitemap acompanhar o domínio
+ * configurado em site.config.mjs. Ver docs/requisitos-tecnicos-fixos.md §7.3.
+ */
+export const GET: APIRoute = ({ site }) => {
+  const base = site!.origin;
+
+  const corpo = `# Cuida Home Care
 # Crawlers de busca e de IA são bem-vindos.
 
 User-agent: *
@@ -35,4 +44,10 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://cuidahomecare.com/sitemap.xml
+Sitemap: ${base}/sitemap.xml
+`;
+
+  return new Response(corpo, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+};

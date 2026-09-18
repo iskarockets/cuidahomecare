@@ -19,7 +19,8 @@ const {
 } = Astro.props;
 const canonical = new URL(
   canonicalPath,
-  Astro.site ?? "https://cuidahomecare.com",
+  // `site` está sempre definido em astro.config.mjs, a partir de site.config.mjs
+  Astro.site!,
 ).href;
 ---
 

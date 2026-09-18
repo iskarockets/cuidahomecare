@@ -1,7 +1,17 @@
-# Cuida Home Care — conteúdo completo
+import type { APIRoute } from "astro";
+
+/**
+ * /llms-full.txt — texto integral da página para assistentes de IA.
+ * Gerado no build para acompanhar o domínio configurado em site.config.mjs.
+ */
+export const GET: APIRoute = ({ site }) => {
+  const base = site!.origin;
+  const hoje = new Date().toISOString().slice(0, 10);
+
+  const corpo = `# Cuida Home Care — conteúdo completo
 
 > Cuidado domiciliar para idosos no ABC e região de São Paulo.
-> Fonte: https://cuidahomecare.com/ · Atualizado em 2026-09-17
+> Fonte: ${base}/ · Atualizado em ${hoje}
 
 ## Hero
 
@@ -79,3 +89,9 @@ Experiência real · Equipe capacitada · Atendimento humanizado · Apoio à fam
 ## Área de atendimento
 
 Service area business: atendimento no ABC e região (São Paulo), sem endereço fixo de atendimento ao público.
+`;
+
+  return new Response(corpo, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+};

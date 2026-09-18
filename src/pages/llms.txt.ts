@@ -1,4 +1,14 @@
-# Cuida Home Care
+import type { APIRoute } from "astro";
+import { contatos } from "../data/contatos";
+
+/**
+ * /llms.txt — Navegação Agêntica (docs/requisitos-tecnicos-fixos.md §7.3).
+ * Gerado no build para que os links acompanhem o domínio configurado.
+ */
+export const GET: APIRoute = ({ site }) => {
+  const base = site!.origin;
+
+  const corpo = `# Cuida Home Care
 
 > Cuidado domiciliar para idosos no ABC e região de São Paulo. Cuidadores treinados e supervisionados, cuidados paliativos, desospitalização, acompanhamento hospitalar e terceirização para ILPI. A empresa nasceu de quem já viveu o cuidado por dentro — na família, em casas de repouso e no home care.
 
@@ -21,15 +31,20 @@ Nutrição e preparo de refeições, transporte e acompanhamento a consultas, se
 
 ## Links
 
-- [Site](https://cuidahomecare.com/)
-- [Conteúdo completo](https://cuidahomecare.com/llms-full.txt)
+- [Site](${base}/)
+- [Conteúdo completo](${base}/llms-full.txt)
 - [WhatsApp](https://wa.me/5511995604988)
-- [Instagram](https://www.instagram.com/cuidahomecare)
-- [Trabalhe conosco](https://forms.gle/6UT8xqQmGfVTc1Pv5)
+- [Instagram](${contatos.instagram})
+- [Trabalhe conosco](${contatos.trabalheConosco})
 
 ## Contato
 
 - Telefone e WhatsApp: (11) 99560-4988
-- WhatsApp alternativo: (11) 91577-7784
-- E-mail: contato.cuidahomecare@gmail.com
+- E-mail: ${contatos.email}
 - Atendimento: ABC e região (São Paulo), sem ponto fixo
+`;
+
+  return new Response(corpo, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+};
