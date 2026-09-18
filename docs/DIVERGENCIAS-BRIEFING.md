@@ -75,6 +75,27 @@ lista os 4 serviços da empresa, e "O que a Cuida faz?", com 5 itens de texto de
 
 ---
 
+## 🔴 3b. O domínio TEM e-mail — o briefing afirma que não
+
+|                    |                                                                                                                                                                                                     |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **O briefing diz** | "✅ **SEM e-mail no domínio** (confirmado pelo Lucas em 17/09). Por isso o apontamento total é seguro: **não há MX pra preservar**. Este é o caso em que se pode trocar nameservers sem risco" — §6 |
+| **A realidade**    | O domínio tem **MX ativo do Google Workspace**: `1 smtp.google.com`, mais o TXT de verificação do Google                                                                                            |
+| **Como sabemos**   | Consulta DNS pública em 18/09 (DNS-over-HTTPS do Google), registros MX e TXT                                                                                                                        |
+
+**Custo se não tivesse sido pego:** o briefing instruía a apontar os nameservers inteiros para a
+Vercel. Isso descarta a zona DNS atual junto com o MX — **o e-mail corporativo do cliente
+pararia de funcionar**. E pararia de um jeito traiçoeiro: o site estaria no ar, bonito e rápido,
+enquanto os e-mails simplesmente sumiriam, sem erro visível.
+
+Era precisamente o desastre que o briefing declarava impossível, e com a justificativa
+invertida: "não há MX para preservar" quando havia.
+
+**Plano corrigido:** manter a zona onde está e alterar só os registros `A` e `www`. O MX não é
+tocado. Detalhes em `docs/guias/dns-cutover.md`.
+
+---
+
 ## 🟠 4. Faltaram canais de contato publicados
 
 |                    |                                                                                                                                               |

@@ -117,7 +117,7 @@ Ordem conforme o texto renderizado. **O agrupamento visual das seções ainda pr
 - **NFR9 — Segurança:** `X-Content-Type-Options`, `Referrer-Policy` e `Strict-Transport-Security` aplicados a **todas as rotas**, não só a `/`.
 - **NFR10 — Hospedagem:** deploy **exclusivamente na conta Vercel do cliente**. É proibido publicar na conta pessoal do Lucas.
 - **NFR11 — Repositório:** o código fica no **GitHub da ISKR (`iskarockets`)**. Este projeto é serviço ISKR e **nunca** usa a conta pessoal `lucas.nogueira`.
-- **NFR12 — DNS:** o domínio aponta para a Vercel, e o cutover só acontece depois da validação completa no preview. Não existe e-mail **no domínio** (o contato publicado é um Gmail), então não há MX a preservar.
+- **NFR12 — DNS (corrigida em 18/09/2026):** o domínio **tem e-mail ativo** (MX `smtp.google.com`, Google Workspace) — o briefing afirmava o contrário. **Não trocar nameservers.** A zona DNS permanece onde está (OpenSRS/Tucows, `systemdns.com`) e alteram-se **apenas** os registros `A` do apex e `www` para apontar à Vercel. O MX e o TXT de verificação do Google não são tocados. Ver `docs/guias/dns-cutover.md`.
 - **NFR13 — Assets:** as imagens servidas hoje (baixadas pela aba Network) são **placeholder autorizado**. Se o cliente mandar logo vetorial e fotos originais, elas substituem as atuais. Se não mandar, o site publica com o placeholder.
 - **NFR14 — Documentação autossuficiente:** a seção "Requisitos técnicos fixos" do briefing fica **colada por inteiro** no repositório (Apêndice A), nunca só referenciada por link.
 - **NFR15 — Localização:** o negócio atende por área, sem endereço fixo. Usar "ABC e região" em texto puro, como já está no Google. **Nenhum endereço inventado.**
