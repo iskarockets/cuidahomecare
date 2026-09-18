@@ -5,19 +5,22 @@
  * o sitemap.xml, os arquivos de Navegação Agêntica e o gate de links.
  * Trocar o domínio principal é mudar ESTA linha e rodar o build.
  *
- * ── Migração planejada para .com.br ────────────────────────────────────────
- * O cliente vai comprar o domínio .com.br, que passa a ser o principal.
- * O .com continua registrado e redireciona para ele (308 pela Vercel).
+ * ── Situação em 18/09/2026 ────────────────────────────────────────────────
+ * O domínio .com.br foi registrado e apontado para a Vercel. Na configuração
+ * do projeto, quem serve o site é o WWW; o apex redireciona para ele:
  *
- * ORDEM CORRETA (não inverter):
- *   1. Comprar o .com.br e apontar o DNS para a Vercel.
- *   2. Adicionar os dois domínios no projeto da Vercel.
- *   3. SÓ ENTÃO trocar o valor abaixo para o .com.br e publicar.
+ *   https://cuidahomecare.com.br      → 308 → https://www.cuidahomecare.com.br
+ *   https://www.cuidahomecare.com.br  → 200   (serve o site)
  *
- * Trocar antes do domínio existir faz a tag canonical apontar para um
- * endereço morto — o Google desindexa o site e o estrago demora a reverter.
+ * Por isso o valor abaixo tem www. O canonical precisa apontar para o endereço
+ * que responde 200 — apontar para o que redireciona é sinal contraditório
+ * para o Google.
+ *
+ * Se algum dia a Vercel for invertida (apex como Production e www como
+ * redirect), esta linha tem que ser invertida junto, ou os dois passam a
+ * discordar.
+ *
+ * O .com antigo ainda serve o site do Canva e será transformado em redirect
+ * para cá — ver docs/guias/migracao-com-br.md.
  */
-export const SITE_URL = "https://cuidahomecare.com";
-
-// Quando o .com.br estiver no ar, troque pela linha abaixo:
-// export const SITE_URL = 'https://cuidahomecare.com.br';
+export const SITE_URL = "https://www.cuidahomecare.com.br";
