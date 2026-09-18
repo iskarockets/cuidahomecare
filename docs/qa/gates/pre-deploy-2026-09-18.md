@@ -197,3 +197,31 @@ As ressalvas são de **rastreabilidade e de medição**, não de funcionamento:
 2. A meta de LCP no mobile só pode ser julgada no preview da Vercel (§3).
 3. O WhatsApp secundário sumiu do site. É o único item da lista que representa **perda de
    função** em relação ao site atual, e vale decidir antes de publicar.
+
+---
+
+## Adendo — troca do domínio canônico (commit `8c8e1e1`)
+
+**Contexto:** o `.com.br` entrou no ar, mas o site publicado ainda declarava o `.com` antigo
+como canônico. Como o `.com` continua servindo o site do Canva, o Google consolidaria os sinais
+no site velho e trataria o novo como cópia.
+
+| #   | Verificação                       | Resultado                                                         |
+| --- | --------------------------------- | ----------------------------------------------------------------- |
+| 1   | Escopo do commit                  | ✅ 1 arquivo (`site.config.mjs`), sem alteração colateral         |
+| 2   | Quem serve 200                    | ✅ `www.cuidahomecare.com.br` · o apex responde 308 para ele      |
+| 3   | Canonical bate com quem serve 200 | ✅ `https://www.cuidahomecare.com.br/`                            |
+| 4   | Sobras do `.com` em `src/`        | ✅ nenhuma                                                        |
+| 5   | Gate `npm test`                   | ✅ build + check-links + html-validate                            |
+| 6   | Hosts aceitos pelo check-links    | ✅ derivados: `www.cuidahomecare.com.br` e `cuidahomecare.com.br` |
+| 7   | Artefatos de SEO                  | ✅ sitemap, robots, llms.txt e llms-full.txt no domínio certo     |
+
+**Decisão do canonical com www:** é o `www` que responde 200 na Vercel; o apex redireciona.
+Canonical precisa apontar para quem responde, não para quem redireciona. Se a Vercel for
+invertida no futuro, a linha do `site.config.mjs` tem que ser invertida junto.
+
+**Veredito: PASS.** Liberado para push.
+
+**Pendente depois do deploy:** o `.com` ainda serve o site do Canva e não aponta para cá.
+Enquanto isso não for resolvido, os dois domínios servem conteúdo parecido com 200 — que é
+exatamente a duplicidade que o redirect elimina. É o próximo item da lista.
