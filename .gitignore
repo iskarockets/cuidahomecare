@@ -25,8 +25,11 @@ dist/
 .env.development
 .env.test
 .env.production
-!.env.example
-
+# O .env.example vem do scaffolding do AIOS (chaves de API de ferramentas
+# internas) e não tem relação com este site. Fica fora do repositório: a Vercel
+# lê esse arquivo no import e pré-preenche as variáveis de ambiente, o que
+# dispara erro de "variável inválida" na tela de deploy.
+.env.example
 # ========================================
 # IDE & Editor
 # ========================================
