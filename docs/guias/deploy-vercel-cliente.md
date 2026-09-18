@@ -18,21 +18,20 @@ publica sozinho.
 
 ---
 
-## ⚠️ Antes de começar: qual GitHub está ligado à Vercel do cliente?
+## ⚠️ Antes de começar: a armadilha da sessão do navegador
 
-Esse é o detalhe que decide se o import funciona de primeira. O repositório é **privado** e
-pertence à conta de usuário `iskarockets`. A Vercel do cliente só enxerga repositórios que a
-**conta GitHub ligada a ela** consegue enxergar.
+A conta Vercel do cliente é **nova e não tem nenhum GitHub vinculado** (situação em 18/09).
+Isso é bom: você decide qual conta será conectada. Mas cria um risco:
 
-Veja em _Settings → Git_ (ou no topo da tela de import) qual login GitHub está conectado:
+> No momento em que você clicar em **Continue with GitHub**, a Vercel vincula **a conta GitHub
+> que estiver logada naquele navegador**. Sem perguntar qual você quer.
 
-| Cenário                                                                          | O que fazer                                                                                                    |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **A conta ligada é `iskarockets`**                                               | Nada. Siga direto para o passo 1                                                                               |
-| **É outra conta GitHub** (do cliente, ou a sua pessoal `lucasnogueira368-pixel`) | Essa conta precisa ser **colaboradora** do repositório. Me diga o login e eu adiciono com permissão de leitura |
+Você tem duas contas GitHub (`iskarockets` e `lucasnogueira368-pixel`). Se a sessão aberta for
+a pessoal, a Vercel do cliente vai ficar amarrada à sua conta pessoal — e desfazer isso depois
+é mais chato do que acertar agora.
 
-Sem isso, o repositório simplesmente não aparece na lista de import — e o erro não explica o
-motivo, o que faz perder tempo.
+**Como evitar:** faça todo o processo numa **janela anônima**, logando primeiro no GitHub como
+`iskarockets` e só então abrindo a Vercel do cliente. Assim não há ambiguidade.
 
 **Nota sobre o plano Hobby:** contas gratuitas **não** conseguem importar repositórios de
 **organizações** do GitHub. Aqui isso não é problema: `iskarockets` é uma **conta de usuário**,
@@ -53,18 +52,21 @@ cliente** — não `iskr projects`. Esse é o erro mais fácil de cometer e o ma
 
 ### 3. Conecte o GitHub da ISKR
 
-Na tela de importação, a Vercel vai listar os repositórios das contas GitHub já conectadas.
-O repositório está na **ISKR**, que provavelmente ainda não aparece ali.
+Como a conta é nova, a Vercel mostra os provedores de Git para conectar. Clique em
+**Continue with GitHub**.
 
-Clique em **Adjust GitHub App Permissions** (ou **Configure GitHub App**). Isso abre o GitHub.
-Lá:
+O GitHub abre pedindo autorização. Confira no topo da página que a conta é **`iskarockets`** —
+se aparecer outra, pare, troque de conta no GitHub e recomece. Depois:
 
-1. Escolha a conta/organização **`iskarockets`**.
+1. Autorize a aplicação **Vercel**.
 2. Em _Repository access_, selecione **Only select repositories**.
 3. Marque **`cuidahomecare`**.
-4. **Save**.
+4. **Install** / **Save**.
 
 Isso dá à Vercel do cliente acesso de leitura **só a esse repositório** — nada mais da ISKR.
+
+> Para acrescentar outros repositórios depois, o caminho é o mesmo:
+> _Settings → Git → Adjust GitHub App Permissions_.
 
 ### 4. Importe o repositório
 
