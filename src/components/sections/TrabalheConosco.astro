@@ -1,0 +1,81 @@
+---
+import { contatos } from "../../data/contatos";
+
+/**
+ * No site atual este bloco é uma pílula no topo da página, acima do hero —
+ * não uma seção. Fala com candidatos a vaga, não com quem busca cuidado,
+ * por isso o peso visual é menor que o do CTA de orçamento.
+ */
+---
+
+<header class="topo" id="trabalhe-conosco">
+  <div class="container topo__conteudo">
+    <a
+      class="topo__link"
+      href={contatos.trabalheConosco}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Trabalhe conosco!
+      <span aria-hidden="true" class="topo__seta">↗</span>
+      <span class="visually-hidden">(abre o formulário em nova aba)</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  /* A pílula flutua sobre o topo da página, alinhada à direita, para a foto do
+     hero encostar no topo — sem faixa branca acima dela, no desktop e no mobile */
+  .topo {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 10;
+    background: transparent;
+    padding-block: var(--esp-3);
+    pointer-events: none;
+  }
+
+  .topo__conteudo {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .topo__link {
+    pointer-events: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .topo {
+      padding-block: var(--esp-6);
+    }
+  }
+
+  .topo__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--esp-2);
+    min-height: var(--alvo-min);
+    padding: var(--esp-2) var(--esp-6);
+    /* Verde sage da marca com texto escuro: branco sobre sage dá 2,20:1
+       e reprova no WCAG AA (correção aprovada em 17/09). */
+    background: var(--bg-sage);
+    color: var(--texto-sobre-sage);
+    border-radius: var(--raio-botao);
+    font-size: var(--fs-small);
+    font-weight: var(--peso-forte);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .topo__seta {
+    font-size: 0.9em;
+  }
+
+  @media (min-width: 1024px) {
+    .topo__conteudo {
+      justify-content: flex-end;
+    }
+  }
+</style>

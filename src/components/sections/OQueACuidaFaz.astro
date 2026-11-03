@@ -1,0 +1,137 @@
+---
+import { Image } from "astro:assets";
+import mockup from "../../assets/mockup-landing.png";
+
+/**
+ * ⚠️ Os textos abaixo reproduzem o original, **com os erros de português dele**
+ * ("precisa de além do cuidado", "Acompanhamento á consultas", "Cuidado Essenciais",
+ * ponto e vírgula final). Corrigir copy está fora de escopo — registrado em
+ * docs/reference/pendencias.md para decisão do Lucas.
+ */
+const itens = [
+  {
+    titulo: "Nutrição",
+    texto:
+      "Preparo de refeições, planejamento da dieta. Ideal para a pessoa assistida que fica sozinha e precisa de além do cuidado.",
+  },
+  {
+    titulo: "Transporte e tarefas",
+    texto: "Acompanhamento á consultas, exames, e atividades.",
+  },
+  {
+    titulo: "Serviços domésticos",
+    texto:
+      "Troca de cama, retirada de lixo, cuidados com o pet de estimação, lavanderia.",
+  },
+  {
+    titulo: "Cuidado Essenciais",
+    texto:
+      "Higiene e banho, cuidado com a pele e cabelos, higiene dental, medicações, rotina.",
+  },
+  {
+    titulo: "Terceirização para ILPI",
+    texto:
+      "Precisa reduzir custos e contratar profissionais de confiança? Deixe a gestão de escala com a Cuida;",
+  },
+];
+---
+
+<section class="o-que-faz" id="o-que-a-cuida-faz">
+  <div class="container o-que-faz__grid">
+    <div class="o-que-faz__texto">
+      <h2 class="o-que-faz__titulo">O que a Cuida faz?</h2>
+
+      <dl class="o-que-faz__lista">
+        {
+          itens.map((item) => (
+            <div class="item">
+              <dt class="item__titulo">{item.titulo}</dt>
+              <dd class="item__texto">{item.texto}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <!-- Imagem decorativa: sai no mobile, alt vazio no desktop -->
+    <div class="o-que-faz__visual">
+      <Image
+        src={mockup}
+        alt=""
+        widths={[438]}
+        loading="lazy"
+        class="o-que-faz__img"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .o-que-faz {
+    background: var(--bg-secao-alt);
+    padding-block: var(--esp-secao);
+  }
+
+  .o-que-faz__grid {
+    display: grid;
+    gap: var(--esp-8);
+  }
+
+  .o-que-faz__titulo {
+    font-size: var(--fs-display-md);
+    margin-bottom: var(--esp-8);
+  }
+
+  .o-que-faz__lista {
+    display: grid;
+  }
+
+  /* Divisória sutil separa sem transformar 5 textos em 5 caixas pesadas
+     (docs/front-end-spec-mobile.md §4 bloco I) */
+  .item {
+    padding-block: var(--esp-6);
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--cor-roxo) 20%, transparent);
+  }
+
+  .item:last-child {
+    border-bottom: 0;
+  }
+
+  .item__titulo {
+    font-family: var(--font-sans);
+    font-size: var(--fs-label);
+    font-weight: var(--peso-forte);
+    color: var(--texto-titulo);
+    margin-bottom: var(--esp-2);
+  }
+
+  .item__texto {
+    margin: 0;
+    max-width: var(--medida-texto);
+  }
+
+  .o-que-faz__visual {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .o-que-faz__grid {
+      grid-template-columns: 60fr 40fr;
+      align-items: center;
+      gap: var(--esp-24);
+    }
+
+    .o-que-faz__visual {
+      display: block;
+      justify-self: center;
+    }
+
+    .o-que-faz__img {
+      width: 100%;
+      max-width: 438px;
+      height: auto;
+      border-radius: var(--raio-card);
+    }
+  }
+</style>

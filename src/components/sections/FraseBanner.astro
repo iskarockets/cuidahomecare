@@ -1,0 +1,34 @@
+---
+/**
+ * Faixa lilás logo abaixo do hero, repetindo a frase de abertura.
+ * A repetição existe no site original — não é erro de implementação.
+ */
+---
+
+<section class="banner">
+  <div class="container">
+    <p class="banner__frase">
+      Cuidar exige mais do que amor.<br />
+      Exige experiência, rotina e presença.
+    </p>
+  </div>
+</section>
+
+<style>
+  .banner {
+    background: var(--bg-destaque);
+    /* Texto escuro: branco sobre o lilás dá 2,59:1 e reprova em qualquer
+       tamanho. Escuro dá 4,72:1 (correção aprovada em 17/09, PRD FR2.1). */
+    color: var(--texto-sobre-lilas);
+    padding-block: var(--esp-12);
+  }
+
+  .banner__frase {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-md);
+    line-height: var(--lh-display);
+    text-align: center;
+    max-width: none;
+    margin-inline: auto;
+  }
+</style>

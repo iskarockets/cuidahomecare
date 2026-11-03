@@ -1,0 +1,150 @@
+---
+import { Image } from "astro:assets";
+import heroFoto from "../../assets/hero-cuidadora-idosa.png";
+import logo from "../../assets/logo-cuida.png";
+import CtaWhatsApp from "../ui/CtaWhatsApp.astro";
+---
+
+<section class="hero" id="inicio">
+  <div class="hero__grid">
+    <div class="hero__foto">
+      <Image
+        src={heroFoto}
+        alt="Cuidadora da Cuida Home Care sorrindo ao lado de uma senhora idosa"
+        widths={[390, 780, 840]}
+        sizes="(min-width: 1024px) 45vw, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__img"
+      />
+    </div>
+
+    <div class="hero__texto">
+      <Image
+        src={logo}
+        alt="Cuida Home Care"
+        widths={[240, 480, 585]}
+        sizes="(min-width: 1024px) 680px, 240px"
+        class="hero__logo"
+        loading="eager"
+      />
+
+      <p class="hero__etiqueta">Cuidadores de idosos em SP</p>
+
+      <h1 class="hero__titulo">
+        <span class="hero__nome visually-hidden">Cuida Home Care</span>
+        Cuidar exige <strong>mais do que amor</strong>. Exige experiência,
+        rotina e presença.
+      </h1>
+
+      <p class="hero__paragrafo">
+        Contamos com uma equipe de cuidadores altamente capacitada e
+        especializada. Cuidados paliativos, desospitalização e atendimento em
+        domicílio com ética, qualidade e segurança, experiência real, equipe
+        capacitada, atendimento humanizado e apoio á familia, é com a Cuida.
+      </p>
+
+      <CtaWhatsApp texto="faça um orçamento" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--bg-pagina);
+    /* Sem respiro no topo: a foto encosta no topo da página, como no site atual */
+    padding-block: 0 var(--esp-secao);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--esp-8);
+  }
+
+  /* Mobile: foto antes do texto, sangrando até as bordas
+     (docs/front-end-spec-mobile.md §4 bloco A) */
+  .hero__img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 25%; /* foco nos rostos */
+  }
+
+  .hero__texto {
+    padding-inline: var(--container-padding);
+  }
+
+  /* Mobile: logo e etiqueta centralizados. O texto corrido segue à esquerda,
+     que é o que se lê melhor em coluna estreita. */
+  .hero__logo {
+    width: 240px;
+    height: auto;
+    margin: 0 auto var(--esp-6);
+  }
+
+  .hero__etiqueta {
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    background: var(--bg-destaque);
+    color: var(--texto-sobre-lilas);
+    font-size: var(--fs-small);
+    font-weight: var(--peso-forte);
+    padding: var(--esp-2) var(--esp-4);
+    border-radius: var(--raio-botao);
+    margin-bottom: var(--esp-4);
+  }
+
+  .hero__titulo {
+    font-size: var(--fs-display-xl);
+    margin-bottom: var(--esp-6);
+    max-width: 16ch;
+  }
+
+  .hero__titulo strong {
+    /* QA-1: o lilás puro dá 2,54:1 sobre o creme e reprova o mínimo de 3:1 */
+    color: var(--texto-destaque);
+    font-weight: var(--peso-forte);
+  }
+
+  .hero__paragrafo {
+    margin-bottom: var(--esp-8);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: 45fr 55fr;
+      align-items: center;
+      gap: 0;
+    }
+
+    .hero__foto {
+      /* A foto ocupa a coluna inteira, do topo da página para baixo */
+      height: 100%;
+    }
+
+    .hero__img {
+      height: 100%;
+      aspect-ratio: auto;
+      min-height: 86vh;
+    }
+
+    .hero__texto {
+      padding: var(--esp-24) clamp(2rem, 5vw, 6rem);
+    }
+
+    .hero__logo {
+      width: 680px;
+      max-width: 100%;
+      margin-inline: 0;
+    }
+
+    .hero__etiqueta {
+      margin-inline: 0;
+    }
+
+    .hero__titulo {
+      max-width: 14ch;
+    }
+  }
+</style>

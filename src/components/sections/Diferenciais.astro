@@ -1,0 +1,123 @@
+---
+/**
+ * No site atual este bloco é uma seção só: o título "Porque a gente entende
+ * antes de oferecer." com os 4 diferenciais logo abaixo, sobre o cinza claro.
+ * A ordem dos itens segue a do site.
+ *
+ * Os ícones são os do próprio site: o Canva os serve como PNG em tons de cinza
+ * sem canal alfa (máscaras). Foram convertidos para alfa por
+ * scripts/extrair-icones-canva.mjs + scripts/montar-icones.mjs e aqui são
+ * aplicados como mask-image, o que permite pintá-los com a cor da marca.
+ */
+import iconeExperiencia from "../../assets/icons/dif-experiencia.png";
+import iconeEscuta from "../../assets/icons/dif-escuta.png";
+import iconeEquipe from "../../assets/icons/dif-equipe.png";
+import iconeApoio from "../../assets/icons/dif-apoio.png";
+
+const itens = [
+  {
+    texto: "Experiência real com mais de 10 anos na gestão de cuidados",
+    icone: iconeExperiencia.src,
+  },
+  {
+    texto: "Escuta acolhedora antes de qualquer proposta",
+    icone: iconeEscuta.src,
+  },
+  {
+    texto: "Equipe supervisionada e com formação contínua",
+    icone: iconeEquipe.src,
+  },
+  { texto: "Apoio emocional também para a família", icone: iconeApoio.src },
+];
+---
+
+<section class="diferenciais" id="diferenciais">
+  <div class="container">
+    <h2 class="diferenciais__titulo">
+      Porque a gente entende <strong>antes</strong> de oferecer.
+    </h2>
+
+    <ul class="diferenciais__lista">
+      {
+        itens.map((item) => (
+          <li class="diferencial">
+            <span
+              class="diferencial__icone"
+              style={`--icone: url(${item.icone})`}
+              aria-hidden="true"
+            />
+            <p class="diferencial__texto">{item.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .diferenciais {
+    background: var(--bg-secao-alt);
+    padding-block: var(--esp-secao);
+  }
+
+  .diferenciais__titulo {
+    font-size: var(--fs-display-lg);
+    text-align: center;
+    max-width: 24ch;
+    margin: 0 auto var(--esp-24);
+  }
+
+  .diferenciais__titulo strong {
+    /* QA-1: o lilás puro reprova no contraste sobre fundo claro */
+    color: var(--texto-destaque);
+    font-weight: var(--peso-forte);
+  }
+
+  .diferenciais__lista {
+    display: grid;
+    gap: var(--esp-12);
+  }
+
+  .diferencial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--esp-4);
+    text-align: center;
+  }
+
+  .diferencial__icone {
+    display: block;
+    width: 84px;
+    height: 84px;
+    background-color: var(--cor-roxo);
+    mask-image: var(--icone);
+    mask-size: contain;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: var(--icone);
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  .diferencial__texto {
+    font-size: var(--fs-body);
+    max-width: 22ch;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .diferenciais__lista {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--esp-16);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .diferenciais__lista {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--esp-8);
+    }
+  }
+</style>

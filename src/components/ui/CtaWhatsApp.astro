@@ -1,0 +1,89 @@
+---
+import { contatos } from "../../data/contatos";
+
+interface Props {
+  /** Texto visível do botão */
+  texto: string;
+  /** Variante visual: amarelo (destaque) ou contorno */
+  variante?: "destaque" | "contorno";
+  /** Largura total no mobile */
+  blocoNoMobile?: boolean;
+  class?: string;
+}
+
+const {
+  texto,
+  variante = "destaque",
+  blocoNoMobile = true,
+  class: classe = "",
+} = Astro.props;
+---
+
+<a
+  class:list={[
+    "cta",
+    `cta--${variante}`,
+    blocoNoMobile && "cta--bloco",
+    classe,
+  ]}
+  href={contatos.whatsappOrcamento}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {texto}
+  <span class="visually-hidden">(abre o WhatsApp em nova aba)</span>
+</a>
+
+<style>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--alvo-min);
+    padding: var(--esp-3) var(--esp-8);
+    border-radius: var(--raio-botao);
+    font-family: var(--font-sans);
+    font-size: var(--fs-label);
+    font-weight: var(--peso-forte);
+    line-height: var(--lh-titulo);
+    text-align: center;
+    /* O site original exibe os CTAs em caixa alta, via CSS. O texto no HTML
+       continua em caixa baixa, como na copy de origem. */
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: filter 150ms ease;
+  }
+
+  .cta:hover {
+    filter: brightness(0.94);
+  }
+
+  .cta--destaque {
+    background: var(--bg-cta);
+    color: var(--texto-cta);
+  }
+
+  .cta--contorno {
+    background: transparent;
+    color: var(--texto-titulo);
+    border: 2px solid var(--cor-lilas);
+  }
+
+  .cta--bloco {
+    display: flex;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .cta--bloco {
+      display: inline-flex;
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta {
+      transition: none;
+    }
+  }
+</style>

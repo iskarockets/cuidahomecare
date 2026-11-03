@@ -1,0 +1,174 @@
+---
+/**
+ * Mosaico 2×2 do site atual:
+ *   [ texto sobre lilás ]  [ foto             ]
+ *   [ foto             ]  [ logo sobre sage  ]
+ *
+ * As fotos originais são pequenas (513×769 e 769×769). O mosaico é contido em
+ * 1440px justamente para a célula não passar de ~720px — acima disso a imagem
+ * precisaria ser ampliada e apareceria pixelada.
+ */
+import { Image, getImage } from "astro:assets";
+import fotoDireita from "../../assets/inicio-atendimento.png";
+import fotoEsquerda from "../../assets/cuidados-essenciais.png";
+import fotoEsquerdaDesktop from "../../assets/cuidados-essenciais-desktop.png";
+import logo from "../../assets/logo-cuida.png";
+
+/**
+ * A foto de baixo tem dois recortes:
+ * - desktop: 509×288 (16:9), recortado pelo Lucas para caber no card deitado;
+ * - mobile:  513×769 (2:3), o original em retrato, que cabe melhor no card 4:3.
+ * Por isso um <picture> com troca por media query, e não um único <img>.
+ */
+const esquerdaDesktop = await getImage({
+  src: fotoEsquerdaDesktop,
+  format: "webp",
+});
+const esquerdaMobile = await getImage({
+  src: fotoEsquerda,
+  widths: [390, 513],
+  format: "webp",
+});
+---
+
+<section class="institucional" id="sobre">
+  <div class="mosaico">
+    <div class="mosaico__texto">
+      <p>
+        A Cuida. nasceu de quem <strong>já viveu o cuidado por dentro</strong> — na
+        família, em casas de repouso e no home care.
+      </p>
+    </div>
+
+    <div class="mosaico__foto">
+      <Image
+        src={fotoDireita}
+        alt="Cuidadora e senhora idosa sorrindo juntas em casa"
+        widths={[390, 769]}
+        sizes="(min-width: 768px) 720px, 100vw"
+        loading="lazy"
+        class="mosaico__img"
+      />
+    </div>
+
+    <div class="mosaico__foto">
+      <picture>
+        <source
+          media="(min-width: 768px)"
+          srcset={esquerdaDesktop.src}
+          width="509"
+          height="288"
+        />
+        <img
+          src={esquerdaMobile.src}
+          srcset={esquerdaMobile.srcSet.attribute}
+          sizes="100vw"
+          width="513"
+          height="769"
+          alt="Enfermeira entregando medicação e um copo d'água a uma senhora idosa"
+          loading="lazy"
+          decoding="async"
+          class="mosaico__img mosaico__img--topo"
+        />
+      </picture>
+    </div>
+
+    <div class="mosaico__marca">
+      <Image
+        src={logo}
+        alt="Cuida Home Care"
+        widths={[585]}
+        sizes="(min-width: 768px) 680px, 70vw"
+        loading="lazy"
+        class="mosaico__logo"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .institucional {
+    background: var(--bg-destaque);
+  }
+
+  .mosaico {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Sem vão entre as células: qualquer gap vira um traço claro entre as fotos */
+    gap: 0;
+    line-height: 0;
+  }
+
+  .mosaico__texto {
+    display: grid;
+    place-items: center;
+    padding: var(--esp-16) var(--esp-6);
+    background: var(--bg-destaque);
+    /* Texto escuro: branco sobre o lilás dá 2,59:1 e reprova no WCAG AA
+       (correção aprovada em 17/09, PRD FR2.1) */
+    color: var(--texto-sobre-lilas);
+  }
+
+  .mosaico__texto p {
+    max-width: 28ch;
+    margin: 0;
+    font-size: var(--fs-heading);
+    line-height: var(--lh-titulo);
+    text-align: center;
+  }
+
+  .mosaico__texto strong {
+    font-weight: var(--peso-forte);
+  }
+
+  .mosaico__foto {
+    /* Proporção do card: a imagem preenche sem ser ampliada além do necessário */
+    aspect-ratio: 4 / 3;
+    position: relative;
+    background: var(--bg-destaque);
+  }
+
+  /* A imagem sangra 1px para fora da célula. Alturas de linha fracionadas
+     (374,906px) deixam uma costura de subpixel entre as células, que aparece
+     como um risco claro — o sangramento cobre essa costura. */
+  .mosaico__img {
+    position: absolute;
+    inset: -1px;
+    display: block;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  /* Enquadramento pelo topo: preserva rosto e cabeça, corta só a parte de baixo */
+  .mosaico__img--topo {
+    object-position: center top;
+  }
+
+  .mosaico__marca {
+    display: grid;
+    place-items: center;
+    padding: var(--esp-6) var(--esp-2);
+    background: var(--bg-sage);
+  }
+
+  .mosaico__logo {
+    width: min(700px, 95%);
+    height: auto;
+  }
+
+  @media (min-width: 768px) {
+    .mosaico {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      /* Limite para a célula não passar de ~720px e a foto não precisar
+         ser ampliada (as originais têm 513 e 769 px de largura) */
+      max-width: 1440px;
+      margin-inline: auto;
+    }
+
+    .mosaico__foto {
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

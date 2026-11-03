@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import visitaFoto from "../../assets/visita-acolhimento.png";
+import inicioFoto from "../../assets/inicio-atendimento.png";
+import contatoInicialFoto from "../../assets/mockup-landing.png";
+---
+
+<section class="como-funciona" id="como-funciona">
+  <div class="container">
+    <h2 class="como-funciona__titulo">Como funciona?</h2>
+
+    <ol class="como-funciona__passos">
+      <li class="passo">
+        <!-- Decisão do Lucas em 17/09: manter a imagem do site atual (o print do
+             mockup), recortada em quadrado e alinhada pelo topo — corta só a
+             parte de baixo. Substitui a proposta de ícone, que foi descartada. -->
+        <div class="passo__visual">
+          <Image
+            src={contatoInicialFoto}
+            alt="Tela de contato da Cuida Home Care"
+            widths={[390, 438]}
+            sizes="(min-width: 768px) 33vw, 100vw"
+            loading="lazy"
+            class="passo__img passo__img--topo"
+          />
+        </div>
+        <h3 class="passo__titulo">Contato Inicial</h3>
+      </li>
+
+      <li class="passo">
+        <div class="passo__visual">
+          <Image
+            src={visitaFoto}
+            alt="Cuidadora conversando com um casal de idosos durante a visita de acolhimento"
+            widths={[390, 655]}
+            sizes="(min-width: 768px) 33vw, 100vw"
+            loading="lazy"
+            class="passo__img"
+          />
+        </div>
+        <h3 class="passo__titulo">Visita de Acolhimento</h3>
+        <p class="passo__texto">Proposta de plano</p>
+      </li>
+
+      <li class="passo">
+        <div class="passo__visual">
+          <Image
+            src={inicioFoto}
+            alt="Cuidadora segurando a mão de uma senhora idosa durante o atendimento"
+            widths={[390, 769]}
+            sizes="(min-width: 768px) 33vw, 100vw"
+            loading="lazy"
+            class="passo__img"
+          />
+        </div>
+        <h3 class="passo__titulo">Início do atendimento</h3>
+        <p class="passo__texto">Acompanhamento contínuo</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .como-funciona {
+    background: var(--bg-cta);
+    padding-block: var(--esp-secao);
+  }
+
+  .como-funciona__titulo {
+    font-size: var(--fs-display-md);
+    text-align: center;
+    margin-bottom: var(--esp-12);
+  }
+
+  .como-funciona__passos {
+    display: grid;
+    gap: var(--esp-8);
+  }
+
+  .passo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-3);
+    text-align: center;
+  }
+
+  /* Altura igual nos três: o ícone recebe o mesmo bloco que a área de foto,
+     para os títulos ficarem na mesma linha de base
+     (docs/front-end-spec-mobile.md §4 bloco F) */
+  .passo__visual {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--raio-card);
+    overflow: hidden;
+  }
+
+  .passo__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Recorte quadrado alinhado pelo topo: corta só o que está abaixo */
+  .passo__img--topo {
+    object-position: top center;
+  }
+
+  .passo__titulo {
+    font-size: var(--fs-label);
+    color: var(--texto-titulo);
+  }
+
+  .passo__texto {
+    font-size: var(--fs-body);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .como-funciona__passos {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--esp-6);
+    }
+  }
+</style>

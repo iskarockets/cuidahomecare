@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import foto from "../../assets/por-que-a-cuida.png";
+
+const pontos = [
+  "Cuidar com quem já viveu o cuidado na pele",
+  "Atendimento consultivo: escutamos antes de oferecer",
+  "Equipe supervisionada e com treinamento contínuo",
+  "Relacionamento próximo com a família",
+];
+---
+
+<section class="por-que" id="por-que-a-cuida">
+  <div class="container por-que__grid">
+    <div class="por-que__foto">
+      <Image
+        src={foto}
+        alt="Senhor idoso sorrindo ao ar livre acompanhado da família"
+        widths={[280, 560, 808]}
+        sizes="(min-width: 1024px) 30rem, 280px"
+        loading="lazy"
+        class="por-que__img"
+      />
+    </div>
+
+    <div class="por-que__texto">
+      <h2 class="por-que__titulo">Por que a Cuida?</h2>
+      <ul class="por-que__lista">
+        {pontos.map((ponto) => <li class="por-que__item">{ponto}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Texto escuro sobre o sage: correção de contraste aprovada em 17/09.
+     Branco sobre #A5B3A1 dava 2,20:1 e reprovava até para texto grande. */
+  .por-que {
+    background: var(--bg-sage);
+    color: var(--texto-sobre-sage);
+    padding-block: var(--esp-secao);
+  }
+
+  .por-que__grid {
+    display: grid;
+    gap: var(--esp-8);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .por-que__img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .por-que__titulo {
+    color: var(--texto-sobre-sage);
+    font-size: var(--fs-display-md);
+    margin-bottom: var(--esp-6);
+  }
+
+  .por-que__lista {
+    display: grid;
+    gap: var(--esp-4);
+  }
+
+  .por-que__item {
+    font-size: var(--fs-body);
+  }
+
+  @media (min-width: 1024px) {
+    /* Conjunto centralizado na página: a foto termina um pouco à esquerda do
+       centro e o texto começa um pouco à direita dele. */
+    .por-que__grid {
+      grid-template-columns: repeat(2, minmax(0, 30rem));
+      justify-content: center;
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
+      text-align: left;
+    }
+
+    .por-que__foto {
+      justify-self: end;
+    }
+
+    .por-que__texto {
+      justify-self: start;
+    }
+
+    .por-que__img {
+      width: clamp(22rem, 30vw, 30rem);
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
